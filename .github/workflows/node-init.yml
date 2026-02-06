@@ -12,6 +12,6 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/node-build.yml@main
+    uses: ./.github/workflows/node-build.yml
     with:
       node-version: ${{ inputs.node-version }}
