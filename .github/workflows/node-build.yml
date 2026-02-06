@@ -1,9 +1,6 @@
 # .github/workflows/node-build.yml
 name: Build node project
 
-permissions:
-  contents: read
-
 on:
   workflow_call:
     inputs:
@@ -13,7 +10,6 @@ on:
 
 jobs:
   build-project:
-    name: Build Project
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
