@@ -29,5 +29,9 @@ jobs:
 
   azure-terraform:
     uses: ./.github/workflows/az-arquitecture.yml
-    with:
-      secrets: inherit
+    secrets:
+      TERRAFORM_REPO_TOKEN: ${{ secrets.TERRAFORM_REPO_TOKEN }}
+      ARM_CLIENT_ID : ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET : ${{ secrets.ARM_CLIENT_SECRET }}  
+      ARM_TENANT_ID : ${{ secrets.ARM_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID : ${{ secrets.ARM_SUBSCRIPTION_ID }}
