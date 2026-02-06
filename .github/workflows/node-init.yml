@@ -1,0 +1,17 @@
+# .github/workflows/node-build.yml
+name: Entry node CI/CD workflow
+
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        required: true
+        type: string
+
+
+jobs:
+  build:
+    uses: ./.github/workflows/node-build.yml@main
+    with:
+      node-version: ${{ inputs.node-version }}
