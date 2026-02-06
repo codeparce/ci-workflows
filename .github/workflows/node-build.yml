@@ -1,6 +1,10 @@
 # .github/workflows/node-build.yml
 name: Build node project
 
+permissions:
+  contents: read  # necesario para acceder a repos privados
+  id-token: write
+
 on:
   workflow_call:
     inputs:
