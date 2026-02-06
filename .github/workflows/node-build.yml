@@ -8,38 +8,22 @@ on:
       node-version:
         required: true
         type: string
-      config-path:
-        required: true
-        type: string
-    secrets:
-      personal_access_token: ${{ secrets.TERRAFORM_REPO_TOKEN }}
 
 jobs:
-  reusable_workflow_job:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/labeler@v6
-      with:
-        repo-token: ${{ secrets.personal_access_token }}
-        configuration-path: ${{ inputs.config-path }}
- 
   node:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.personal_access_token }} 
           fetch-depth: 0 
           
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ inputs.node-version }}
 
-      - name: Install dependencies
-        run: npm i
+      - run: npm i
 
-      - name: Build Project
-        run: npm run build
+      - run: npm run build
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
