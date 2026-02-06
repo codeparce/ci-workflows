@@ -3,10 +3,12 @@ name: build node project
 on:
   workflow_call:
     inputs:
-      environment:
+      config-path:
         required: true
         type: string
-
+    secrets:
+      personal_access_token:
+        required: true
 
 jobs:
   build-project:
