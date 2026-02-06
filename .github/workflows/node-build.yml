@@ -1,5 +1,8 @@
 name: Build node project
 
+permissions:
+  contents: read
+
 on:
   workflow_call:
 
