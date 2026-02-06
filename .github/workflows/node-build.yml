@@ -1,9 +1,6 @@
 # .github/workflows/node-build.yml
 name: Build node project
 
-permissions:
-  contents: read  # necesario para acceder a repos privados
-  id-token: write
 
 on:
   workflow_call:
@@ -23,6 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          token: ${{ secrets.personal_access_token }} 
           fetch-depth: 0 
           
       - uses: actions/setup-node@v4
