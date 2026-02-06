@@ -29,3 +29,5 @@ jobs:
 
   azure-terraform:
     uses: ./.github/workflows/az-arquitecture.yml
+    with:
+      secrets: inherit
