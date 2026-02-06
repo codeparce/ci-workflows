@@ -1,0 +1,38 @@
+name: build node project
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+
+jobs:
+  build-project:
+    name: Build Project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+          
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: dist
+          retention-days: 1
+          
