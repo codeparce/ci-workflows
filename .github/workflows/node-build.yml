@@ -15,6 +15,14 @@ on:
       personal_access_token: ${{ secrets.TERRAFORM_REPO_TOKEN }}
 
 jobs:
+  reusable_workflow_job:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/labeler@v6
+      with:
+        repo-token: ${{ secrets.personal_access_token }}
+        configuration-path: ${{ inputs.config-path }}
+ 
   node:
     runs-on: ubuntu-latest
     steps:
