@@ -29,4 +29,6 @@ jobs:
 
   azure-terraform:
     uses: ./.github/workflows/az-arquitecture.yml
+    with:
+      node-version: ${{ inputs.node-version }}
     secrets: inherit
