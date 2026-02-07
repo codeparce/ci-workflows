@@ -4,17 +4,7 @@ name: Deploy to Azure Arquitecture
 
 on:
   workflow_call:
-    secrets:
-      PERSONAL_ACCES_TOKEN:
-        required: true
-      ARM_CLIENT_ID:
-        required: true
-      ARM_CLIENT_SECRET:
-        required: true
-      ARM_TENANT_ID:
-        required: true
-      ARM_SUBSCRIPTION_ID:
-        required: true
+
 
 jobs:
   deploy-azure-arquitecture:

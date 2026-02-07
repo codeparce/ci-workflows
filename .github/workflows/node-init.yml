@@ -8,17 +8,7 @@ on:
       node-version:
         required: true
         type: string
-    secrets:
-      PERSONAL_ACCES_TOKEN:
-        required: true
-      ARM_CLIENT_ID:
-        required: true
-      ARM_CLIENT_SECRET:
-        required: true
-      ARM_TENANT_ID:
-        required: true
-      ARM_SUBSCRIPTION_ID:
-        required: true
+
 
 jobs:
   build:
