@@ -27,9 +27,11 @@ jobs:
       node-version: ${{ inputs.node-version }}
 
   azure-terraform:
+    name: Azure
     uses: ./.github/workflows/azure-arquitecture.yml
     secrets: inherit
 
   azure-deploy:
+    name: Azure
     uses: ./.github/workflows/azure-web-app.yml
     needs: [azure-terraform, build]
