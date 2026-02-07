@@ -7,7 +7,6 @@ on:
 
 jobs:
   deploy-azure-static-web-app:
-    name: Deploy to Azure Web App
     runs-on: ubuntu-latest
 
     steps:

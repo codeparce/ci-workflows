@@ -22,17 +22,14 @@ on:
 
 jobs:
   build:
-    name: Build Node Project
     uses: ./.github/workflows/node-build.yml
     with:
       node-version: ${{ inputs.node-version }}
 
   azure-terraform:
-    name: Deploy Azure Arquitecture
     uses: ./.github/workflows/azure-arquitecture.yml
     secrets: inherit
 
   azure-deploy:
-    name: Deploy Azure Arquitecture
     uses: ./.github/workflows/azure-web-app.yml
     needs: [azure-terraform, build]
