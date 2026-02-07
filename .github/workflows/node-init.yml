@@ -9,7 +9,7 @@ on:
         required: true
         type: string
     secrets:
-      TERRAFORM_REPO_TOKEN:
+      PERSONAL_ACCES_TOKEN:
         required: true
       ARM_CLIENT_ID:
         required: true

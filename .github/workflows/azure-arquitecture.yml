@@ -5,7 +5,7 @@ name: Deploy to Azure Arquitecture
 on:
   workflow_call:
     secrets:
-      TERRAFORM_REPO_TOKEN:
+      PERSONAL_ACCES_TOKEN:
         required: true
       ARM_CLIENT_ID:
         required: true
@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: codeparce/azure-terraform
-          token: ${{ secrets.TERRAFORM_REPO_TOKEN }}
+          token: ${{ secrets.PERSONAL_ACCES_TOKEN }}
           path: azure-terraform
 
       - name: Setup Terraform
