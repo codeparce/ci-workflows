@@ -19,6 +19,7 @@ on:
 jobs:
   deploy-azure-arquitecture:
     runs-on: ubuntu-latest
+    environment: test
     env:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
