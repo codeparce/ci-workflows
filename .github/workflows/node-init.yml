@@ -8,7 +8,17 @@ on:
       node-version:
         required: true
         type: string
-    secrets: inherit
+    secrets:
+      TERRAFORM_REPO_TOKEN:
+        required: true
+      ARM_CLIENT_ID:
+        required: true
+      ARM_CLIENT_SECRET:
+        required: true
+      ARM_TENANT_ID:
+        required: true
+      ARM_SUBSCRIPTION_ID:
+        required: true
 
 
 jobs:
@@ -19,6 +29,4 @@ jobs:
 
   azure-terraform:
     uses: ./.github/workflows/az-arquitecture.yml
-    with:
-      node-version: ${{ inputs.node-version }}
     secrets: inherit
