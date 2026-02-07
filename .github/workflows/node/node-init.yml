@@ -25,10 +25,10 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/node-build.yml
+    uses: ./.github/workflows/node/node-build.yml
     with:
       node-version: ${{ inputs.node-version }}
 
   azure-terraform:
-    uses: ./.github/workflows/az-arquitecture.yml
+    uses: ./.github/workflows/azure/az-arquitecture.yml
     secrets: inherit
