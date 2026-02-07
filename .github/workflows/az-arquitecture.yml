@@ -4,6 +4,10 @@ name: Deploy to Azure Arquitecture
 
 on:
   workflow_call:
+    inputs:
+      node-version:
+        required: true
+        type: string
     secrets:
       TERRAFORM_REPO_TOKEN:
         required: true
