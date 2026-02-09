@@ -42,6 +42,6 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/${{ inputs.image-name }}:${{ inputs.image-tag }} .
+          docker push ${{ secrets.DOCKER_ACCOUNT_NAME }}/${{ inputs.image-name }}:${{ inputs.image-tag }} .
           
     
