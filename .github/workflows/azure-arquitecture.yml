@@ -38,7 +38,7 @@ jobs:
       - name: Deploy Azure infrastructure
         run: |
           cd azure-terraform/2-static-web-app
-          bash azure_deploy_arquitecture.sh
+          bash main.sh
 
       - name: Upload Static Web App secrets artifact
         uses: actions/upload-artifact@v4
