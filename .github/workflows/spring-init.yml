@@ -1,0 +1,31 @@
+# .github/workflows/node-build.yml
+permissions:
+  contents: read
+
+on:
+  workflow_call:
+    inputs:
+      java-version:
+        required: false
+        type: string
+
+jobs:
+  build:
+    uses: ./.github/workflows/node-build.yml
+    with:
+      java-version: ${{ inputs.java-version }}
+
+  docker:
+    needs: build
+    uses: ./.github/workflows/docker-build.yml
+    with:
+      image-name: ${{ github.event.repository.name }}
+      image-tag: ${{ github.ref_name }}
+    secrets: inherit
+
+
+  # azure-terraform:
+  #   name: Azure
+  #   uses: ./.github/workflows/azure-arquitecture.yml
+  #   secrets: inherit
+
