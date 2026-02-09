@@ -1,4 +1,4 @@
-# .github/workflows/node-build.yml
+# .github/workflows/spring-init.yml
 permissions:
   contents: read
 
@@ -24,8 +24,8 @@ jobs:
     secrets: inherit
 
 
-  # azure-terraform:
-  #   name: Azure
-  #   uses: ./.github/workflows/azure-arquitecture.yml
-  #   secrets: inherit
+  azure-terraform:
+    name: Azure
+    uses: ./.github/workflows/azure-arquitecture.yml
+    secrets: inherit
 
