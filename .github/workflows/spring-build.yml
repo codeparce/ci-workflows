@@ -10,7 +10,7 @@ on:
         default: '17'
 
 jobs:
-  springboot:
+  build:
     runs-on: ubuntu-latest
     name: Spring Boot
     steps:
