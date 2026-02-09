@@ -24,7 +24,8 @@ jobs:
     secrets: inherit
 
 
-  azure-terraform:
+  azure:
+    needs: docker
     name: Azure
     uses: ./.github/workflows/azure-arquitecture.yml
     secrets: inherit
