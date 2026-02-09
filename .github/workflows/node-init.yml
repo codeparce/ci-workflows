@@ -23,4 +23,4 @@ jobs:
   azure-deploy:
     name: Azure
     uses: ./.github/workflows/azure-web-app.yml
-    needs: [azure-terraform, build]
+    needs: [azure-terraform, node]
