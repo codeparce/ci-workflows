@@ -4,6 +4,11 @@ name: Deploy to Azure Arquitecture
 
 on:
   workflow_call:
+    inputs:
+      repo_name:
+        required: true
+        type: string
+
 
 
 jobs:
@@ -11,7 +16,7 @@ jobs:
     name: Arquitecture
     runs-on: ubuntu-latest
     env:
-      GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+      GITHUB_REPOSITORY_NAME: ${{ inputs.repo_name }}
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
