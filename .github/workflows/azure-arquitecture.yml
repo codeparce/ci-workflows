@@ -1,15 +1,8 @@
 # .github/workflows/node-build.yml
 name: Deploy to Azure Arquitecture
 
-
 on:
   workflow_call:
-    inputs:
-      repo_name:
-        required: false
-        type: string
-
-
 
 jobs:
   terraform:

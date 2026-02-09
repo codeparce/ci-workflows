@@ -10,7 +10,7 @@ on:
         type: string
 
 jobs:
-  build:
+  springboot:
     uses: ./.github/workflows/spring-build.yml
     with:
       java-version: ${{ inputs.java-version }}
@@ -23,12 +23,8 @@ jobs:
       image-tag: ${{ github.ref_name }}
     secrets: inherit
 
-
   azure:
     needs: docker
-    name: Azure
-    with:
-      repo_name: ${{ github.event.repository.name }}
     uses: ./.github/workflows/azure-arquitecture.yml
     secrets: inherit
 
