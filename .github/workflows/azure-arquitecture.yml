@@ -27,6 +27,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: codeparce/azure-terraform
+          ref: azure
           token: ${{ secrets.PERSONAL_ACCES_TOKEN }}
           path: azure-terraform
 
