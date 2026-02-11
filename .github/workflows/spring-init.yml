@@ -16,7 +16,7 @@ jobs:
       java-version: ${{ inputs.java-version }}
 
   docker:
-    needs: build
+    needs: springboot
     uses: ./.github/workflows/docker-build.yml
     with:
       image-name: ${{ github.event.repository.name }}
