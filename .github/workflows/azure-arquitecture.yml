@@ -7,6 +7,7 @@ on:
 jobs:
   terraform:
     name: Arquitecture
+    timeout-minutes: 3
     runs-on: ubuntu-latest
     env:
       GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
