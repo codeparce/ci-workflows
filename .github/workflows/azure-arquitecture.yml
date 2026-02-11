@@ -7,7 +7,7 @@ on:
 jobs:
   terraform:
     name: Arquitecture
-    timeout-minutes: 3
+    timeout-minutes: 4
     runs-on: ubuntu-latest
     env:
       GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
@@ -31,6 +31,12 @@ jobs:
           ref: azure
           token: ${{ secrets.PERSONAL_ACCES_TOKEN }}
           path: azure-terraform
+
+      - name: Cache Terraform plugins
+        uses: actions/cache@v3
+        with:
+          path: ~/.terraform.d/plugin-cache
+          key: ${{ runner.os }}-terraform-${{ hashFiles('**/*.tf') }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
