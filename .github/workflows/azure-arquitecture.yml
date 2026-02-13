@@ -45,5 +45,5 @@ jobs:
 
       - name: Deploy Azure infrastructure
         run: |
-          cd azure-terraform/4-container-app
+          cd azure-terraform/5-container-app
           bash main.sh
