@@ -9,7 +9,7 @@ on:
 jobs:
   functions:
     name: Build code
-    uses: ./.github/workflows/build-code-gcp.yml
+    uses: ./.github/workflows/build-code.yml
     secrets: inherit
 
 #  gcp-terraform:
