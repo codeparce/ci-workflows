@@ -49,13 +49,6 @@ jobs:
           name: file.zip
           path: function
 
-      - name: validate
-        run: |
-          ls function
-
-      - name: Setup gcloud
-        uses: google-github-actions/setup-gcloud@v2
-
       - name: Setup Vault
         uses: hashicorp/vault-action@v2
         with:
@@ -63,7 +56,16 @@ jobs:
           method: userpass
           username: ${{ secrets.VAULT_USERNAME }}
           password: ${{ secrets.VAULT_PASS }}
-          
+          secrets: secret/service-account-terraform-gcp 
+          exportEnv: false
+          outputToken: false
+
+      - name: validate
+        run: ls && echo $service-account-terraform-gcp
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
       - name: Clone terraform scripts repository
         uses: actions/checkout@v4
         with:
@@ -72,6 +74,6 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCES_TOKEN }}
           path: terraform-cloud
 
-      - name: Push zip to bucket
-        run: |
-          bash terraform-cloud/3-functions/upload_zip.sh
+      # - name: Push zip to bucket
+      #   run: |
+      #     bash terraform-cloud/3-functions/upload_zip.sh
