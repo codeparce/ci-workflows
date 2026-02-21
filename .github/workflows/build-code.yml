@@ -27,3 +27,45 @@ jobs:
           path: function/functions.zip
           retention-days: 1
           
+  push-code:
+    name: Push Code
+    runs-on: ubuntu-latest
+    env:
+      VAULT_USER: ${{ secrets.VAULT_USER }}
+      VAULT_PASS: ${{ secrets.VAULT_PASS }}
+      VAULT_ADDR: ${{ secrets.VAULT_ADDR }}  
+      VAULT_NAMESPACE: ${{ secrets.VAULT_NAMESPACE }}  
+      GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: Download zip artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: file.zip
+          path: function
+
+      - name: validate
+        run: |
+          ls function
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Get secrets from Vault
+        uses: hashicorp/vault-action@v2
+
+      - name: Clone terraform scripts repository
+        uses: actions/checkout@v4
+        with:
+          repository: codeparce/terraform-cloud
+          ref: gcp
+          token: ${{ secrets.PERSONAL_ACCES_TOKEN }}
+          path: terraform-cloud
+
+      - name: Push zip to bucket
+        run: |
+          bash terraform-cloud/3-functions/upload_zip.sh
