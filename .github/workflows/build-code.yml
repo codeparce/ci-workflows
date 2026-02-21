@@ -57,8 +57,13 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
 
       - name: Setup Vault
-        uses: hashicorp/setup-vault@v2
-
+        uses: hashicorp/vault-action@v2
+        with:
+          url: ${{ secrets.VAULT_ADDR }}
+          method: userpass
+          username: ${{ secrets.VAULT_USERNAME }}
+          password: ${{ secrets.VAULT_PASS }}
+          
       - name: Clone terraform scripts repository
         uses: actions/checkout@v4
         with:
