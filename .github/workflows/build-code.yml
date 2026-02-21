@@ -64,4 +64,4 @@ jobs:
 
       - name: Push zip to bucket
         run: |
-          cd terraform-cloud/3-functions && bash upload_zip.sh
+          mv function/functions.zip terraform-cloud/3-functions && cd terraform-cloud/3-functions && bash upload_zip.sh
