@@ -16,6 +16,14 @@ jobs:
         with:
           fetch-depth: 0 
 
-      - name: Deploy Azure infrastructure
+      - name: zip code
         run: |
-          ls
+          ls && cd function/ && zip -r functions.zip . -x "*test*"
+
+      - name: Upload zip artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zip
+          path: function/functions.zip
+          retention-days: 1
+          
