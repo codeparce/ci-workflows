@@ -1,0 +1,19 @@
+# .github/workflows/functions-gcp.yml
+permissions:
+  contents: read
+
+on:
+  workflow_call:
+
+
+jobs:
+  build:
+    name: Build
+    uses: ./.github/workflows/build-functions.yml
+    secrets: inherit
+    
+  gcp-terraform:
+    name: GCP
+    uses: ./.github/workflows/deploy-functions.yml
+    secrets: inherit
+    needs: [build]

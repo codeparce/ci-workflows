@@ -1,0 +1,39 @@
+# .github/workflows/deploy-functions.yml
+on:
+  workflow_call:
+
+jobs:
+  tf-deploy:
+    name: Deploy GCP
+    runs-on: ubuntu-latest
+    container:
+      image: codeparce/ci-tools-gcloud:latest
+    env:
+      VAULT_USER: ${{ secrets.VAULT_USER }}
+      VAULT_PASS: ${{ secrets.VAULT_PASS }}
+      VAULT_ADDR: ${{ secrets.VAULT_ADDR }}  
+      VAULT_NAMESPACE: ${{ secrets.VAULT_NAMESPACE }}  
+      GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: Download zip artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: file.zip
+          path: function
+
+      - name: Clone terraform scripts repository
+        uses: actions/checkout@v4
+        with:
+          repository: codeparceorg/terraform-cloud
+          ref: gcp
+          token: ${{ secrets.PERSONAL_ACCES_TOKEN }}
+          path: terraform-cloud
+
+      - name: Push zip to bucket
+        run: |
+          mv function/functions.zip terraform-cloud/3-functions && cd terraform-cloud/3-functions && bash main.sh
