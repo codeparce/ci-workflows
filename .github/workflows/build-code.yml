@@ -30,6 +30,8 @@ jobs:
   push-code:
     name: Push Code
     runs-on: ubuntu-latest
+    container:
+      image: codeparce/ci-tools-gcloud:latest
     needs: [zip-code]
     env:
       VAULT_USER: ${{ secrets.VAULT_USER }}
@@ -57,15 +59,15 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCES_TOKEN }}
           path: terraform-cloud
           
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.6.6
+      # - name: Setup Terraform
+      #   uses: hashicorp/setup-terraform@v3
+      #   with:
+      #     terraform_version: 1.6.6
 
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v3
-        with:
-          version: '>= 363.0.0'
+      # - name: Set up Cloud SDK
+      #   uses: google-github-actions/setup-gcloud@v3
+      #   with:
+      #     version: '>= 363.0.0'
 
       - name: Push zip to bucket
         run: |
