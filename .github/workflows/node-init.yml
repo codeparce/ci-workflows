@@ -17,8 +17,8 @@ jobs:
       target: dist
     secrets: inherit
 
-  # azure:
-  #   needs: docker
-  #   uses: ./.github/workflows/azure-arquitecture.yml
-  #   secrets: inherit
+  azure:
+    needs: docker
+    uses: ./.github/workflows/azure-arquitecture.yml
+    secrets: inherit
 
