@@ -1,0 +1,22 @@
+# .github/workflows/spring-init.yml
+permissions:
+  contents: read
+
+on:
+  workflow_call:
+
+jobs:
+  node:
+    uses: ./.github/workflows/node-build.yml
+    secrets: inherit
+
+  docker:
+    needs: node
+    uses: ./.github/workflows/docker-build.yml
+    secrets: inherit
+
+  # azure:
+  #   needs: docker
+  #   uses: ./.github/workflows/azure-arquitecture.yml
+  #   secrets: inherit
+

@@ -18,9 +18,6 @@ jobs:
   docker:
     needs: springboot
     uses: ./.github/workflows/docker-build.yml
-    with:
-      image-name: ${{ github.event.repository.name }}
-      image-tag: ${{ github.ref_name }}
     secrets: inherit
 
   azure:
