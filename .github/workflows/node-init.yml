@@ -8,12 +8,11 @@ on:
       node-version:
         required: true
         type: string
-    secrets:    
-      DOPPLER_TOKEN:
-        required: true
+
 jobs:
   node:
     uses: ./.github/workflows/node-build.yml
+    secrets: inherit
     with:
       node-version: ${{ inputs.node-version }}
 
