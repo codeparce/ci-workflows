@@ -37,7 +37,7 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: web-build
+          name: service-build
           path: dist
           retention-days: 1
           

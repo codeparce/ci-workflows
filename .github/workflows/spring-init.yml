@@ -18,6 +18,8 @@ jobs:
   docker:
     needs: springboot
     uses: ./.github/workflows/docker-build.yml
+    with:
+      target: target/*.jar
     secrets: inherit
 
   azure:

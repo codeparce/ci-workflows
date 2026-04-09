@@ -1,4 +1,4 @@
-# .github/workflows/spring-init.yml
+# .github/workflows/node-init.yml
 permissions:
   contents: read
 
@@ -13,6 +13,8 @@ jobs:
   docker:
     needs: node
     uses: ./.github/workflows/docker-build.yml
+    with:
+      target: dist
     secrets: inherit
 
   # azure:
