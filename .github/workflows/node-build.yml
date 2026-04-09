@@ -26,8 +26,7 @@ jobs:
 
       - name: Run with secrets
         run: |
-          doppler configure set token $DOPPLER_TOKEN  && 
-          doppler secrets download -p vault-codeparce -c "$DOPPLER_CONFIG" --no-file --format env > .env && cat .env
+          doppler secrets download -p vault-codeparce -c "$DOPPLER_CONFIG" --no-file --format env -t "$DOPPLER_TOKEN" > .env && cat .env
 
       - uses: actions/setup-node@v4
         with:
