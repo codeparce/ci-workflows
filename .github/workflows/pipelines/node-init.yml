@@ -15,10 +15,10 @@ jobs:
     secrets: inherit
 
   infra:
-    uses: ./.github/workflows/infra/azure-terraform.yml
+    uses: ./.github/workflows/infra/azure-arq.yml
     secrets: inherit
 
   deploy:
-    uses: ./.github/workflows/cd/azure-deploy.yml
+    uses: ./.github/workflows/cd/swa.yml
     needs: [build, infra]
     secrets: inherit
