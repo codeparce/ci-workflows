@@ -12,6 +12,7 @@ jobs:
     uses: ./.github/workflows/ci-build-node.yml
     with:
       node-version: ${{ inputs.node-version }}
+      doppler-project: vault-codeparce
     secrets: inherit
 
   infra:
