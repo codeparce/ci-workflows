@@ -25,10 +25,10 @@ jobs:
       - name: Clone terraform scripts repository
         uses: actions/checkout@v4
         with:
-          repository: codeparce/azure-terraform
-          ref: azure
+          repository: codeparce/terraform-cloud
+          ref: main
           token: ${{ secrets.PERSONAL_ACCES_TOKEN }}
-          path: azure-terraform
+          path: terraform-cloud
 
       - name: Cache Terraform plugins
         uses: actions/cache@v3
@@ -46,5 +46,5 @@ jobs:
         
       - name: Deploy Azure infrastructure
         run: |
-          cd azure-terraform/5-container-app
+          cd /terraform-cloud/azure/5-container-app
           bash main.sh
