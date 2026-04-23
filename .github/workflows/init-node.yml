@@ -1,0 +1,46 @@
+name: Fullstack Pipeline
+
+on:
+  workflow_call:
+    inputs:
+      type:
+        required: true
+        type: string
+      cloud:
+        type: string
+      services:
+        type: string
+
+jobs:
+  build:
+    uses: ./.github/workflows/ci-build-node.yml
+    with:
+      doppler-project: vault-codeparce
+    secrets: inherit
+
+  infra_front:
+    if: ${{ inputs.stack == 'front' }}
+    uses: ./.github/workflows/infra-az-swa.yml
+    secrets: inherit
+
+  deploy_front:
+    if: ${{ inputs.stack == 'front' }}
+    needs: [build, infra_front]
+    uses: ./.github/workflows/cd-az-swa.yml
+    with:
+      node-version: 24
+    secrets: inherit
+
+  publish_back:
+    if: ${{ inputs.stack == 'back' }}
+    needs: build
+    uses: ./.github/workflows/ci-docker.yml
+    with:
+      target: dist
+    secrets: inherit
+
+  infra_back:
+    if: ${{ inputs.stack == 'back' }}
+    needs: publish_back
+    uses: ./.github/workflows/infra-az-cae.yml
+    secrets: inherit
