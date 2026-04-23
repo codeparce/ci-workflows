@@ -1,14 +1,24 @@
 name: "Deploy Azure Static Web App"
 
-inputs:
-  artifact-path:
-    required: true
-  config-path:
-    required: true
-
 runs:
   using: "composite"
   steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 24
+
+    - name: Download build
+      uses: actions/download-artifact@v4
+      with:
+        name: web-build
+        path: dist
+
+    - name: Download config
+      uses: actions/download-artifact@v4
+      with:
+        name: static-web-app-json
+        path: secret
+
     - name: Install SWA CLI
       run: npm install -g @azure/static-web-apps-cli
       shell: bash

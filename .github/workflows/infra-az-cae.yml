@@ -22,9 +22,21 @@ jobs:
         with:
           fetch-depth: 0 
 
-      - name: Setup cloud environment
-        uses: codeparce/ci-workflows/.github/actions/azure/setup@v1
-        secrets: inherit
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6
+
+      - name: Install Doppler CLI
+        uses: dopplerhq/cli-action@v3
+
+      - name: Clone terraform scripts repository
+        uses: actions/checkout@v4
+        with:
+          repository: codeparce/terraform-cloud
+          ref: main
+          token: ${{ secrets.PERSONAL_ACCES_TOKEN }}
+          path: terraform-cloud
         
       - name: Deploy Azure infrastructure
         run: |

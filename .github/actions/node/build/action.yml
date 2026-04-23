@@ -1,20 +1,20 @@
 # .github/workflows/node-build.yml
 name: "Build Node Project"
 
-inputs:
-  artifact-name:
-    default: "web-build"
-
 runs:
   using: "composite"
   steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 24
 
-    - name: Build Project
-      run: npm run build
+    - run: npm i
+      shell: bash
+
+    - run: npm run build
       shell: bash
       
-    - name: Upload build artifact
-      uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v4
       with:
         name: web-build
         path: dist
