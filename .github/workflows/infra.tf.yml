@@ -13,7 +13,8 @@ on:
     outputs:
       swa_key:
         description: "Static Web App API Key"
-        value: ${{ jobs.infra.outputs.swa_key }}
+        value: ${{ jobs.terraform.outputs.swa_key }}
+        
 jobs:
   terraform:
     name: Arquitecture
