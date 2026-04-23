@@ -45,12 +45,12 @@ jobs:
         run: | 
           ls -la 
           echo "ENV_NAME=$ENV_NAME"
-          cat secret/static-web-app-json.json
+          cat ./secret/static-web-app-json.json
           ls -la ./dist
 
       - name: Deploy Static Web App
         run: |
-          FILE_JSON="secret/static-web-app-json.json"
-          API_KEY=$(jq -r '.properties.apiKey' $FILE_JSON)
+          API_KEY=$(jq -r '.properties.apiKey' ./secret/static-web-app-json.json)
+          echo "API_KEY=$API_KEY"
           
           swa deploy ./dist --deployment-token $API_KEY --env $ENV_NAME
