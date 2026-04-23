@@ -1,0 +1,37 @@
+# .github/workflows/node-build.yml
+name: Deploy to Azure Arquitecture
+
+on:
+  workflow_call:
+    tf-directory:
+      required: true
+      type: string
+    cloud:
+      required: true
+      type: string
+
+jobs:
+  terraform:
+    name: Arquitecture
+    timeout-minutes: 4
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy infrastructure
+        uses: codeparce/ci-workflows/actions/terraform@v1
+        with:
+          cloud: ${{ inputs.cloud }}
+          tf-directory: ${{ inputs.tf-directory }}
+          personal-access-token: ${{ secrets.PERSONAL_ACCES_TOKEN }}
+          docker-account-name: ${{ secrets.DOCKER_ACCOUNT_NAME }}
+          docker-access-token: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+          doppler-token: ${{ secrets.DOPPLER_TOKEN }}
+
+      - name: Upload Static Web App secrets artifact
+        if: ${{ inputs.tf-directory == '2-static-web-app' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-web-app-json
+          path: terraform-cloud/azure/2-static-web-app/secret
+          retention-days: 1

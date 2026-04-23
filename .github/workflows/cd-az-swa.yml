@@ -3,19 +3,46 @@ name: Deploy to Azure Arquitecture
 
 on:
   workflow_call:
+inputs:
+      config-path:
+        required: true
+      artifact-path:
+        required: true
 
 jobs:
-  deploy-azure-static-web-app:
+  deploy-az-swa:
     runs-on: ubuntu-latest
     name: Static Web App
-
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 
 
-      - name: Deploy SWA
-        uses: codeparce/ci-workflows/.github/actions/azure/swa@v1
+      - uses: actions/setup-node@v4
         with:
-          artifact-path: dist
-          config-path: secret
+          node-version: 24
+
+      - name: Download build
+        uses: actions/download-artifact@v4
+        with:
+          name: web-build
+          path: ${ { inputs.artifact-path } }
+
+      - name: Download config
+        uses: actions/download-artifact@v4
+        with:
+          name: static-web-app-json
+          path: ${ { inputs.config-path } }
+
+      - name: Install SWA CLI
+        run: npm install -g @azure/static-web-apps-cli
+
+      - name: Deploy
+        run: |
+          ENV_NAME=$([ "$GITHUB_REF_NAME" = "main" ] && echo "production" || echo "$GITHUB_REF_NAME")
+          FILE_JSON="${{ inputs.config-path }}/static-web-app-json.json"
+          API_KEY=$(jq -r '.properties.apiKey' $FILE_JSON)
+
+          swa deploy ${{ inputs.artifact-path }} \
+            --deployment-token $API_KEY \
+            --env $ENV_NAME

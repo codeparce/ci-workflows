@@ -1,0 +1,51 @@
+# actions/infra-terraform/action.yml
+name: Deploy Azure Infrastructure
+description: Clona terraform-cloud y aplica infraestructura en Azure
+
+inputs:
+  cloud:
+    description: "Cloud provider (azure, aws, gcp)"
+    required: true
+  tf-directory:
+    description: "Subdirectorio dentro de terraform-cloud/azure/"
+    required: true
+  personal-access-token:
+    description: "GitHub PAT para clonar repo privado"
+    required: true
+  docker-account-name:
+    required: false
+  docker-access-token:
+    required: false
+  doppler-token:
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.6.6
+
+    - name: Install Doppler CLI
+      uses: dopplerhq/cli-action@v3
+
+    - name: Clone terraform scripts repository
+      uses: actions/checkout@v4
+      with:
+        repository: codeparce/terraform-cloud
+        ref: main
+        token: ${{ inputs.personal-access-token }}
+        path: terraform-cloud
+
+    - name: Deploy ${{ inputs.cloud }} infrastructure
+      shell: bash                          
+      env:                                 
+        GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+        DOCKER_ACCOUNT_NAME: ${{ inputs.docker-account-name }}
+        DOCKER_ACCESS_TOKEN: ${{ inputs.docker-access-token }}
+        DOPPLER_TOKEN: ${{ inputs.doppler-token }}
+        APP_ENVIRONMENT: ${{ github.ref_name }}_${{ github.event.repository.name }}
+      run: |
+        cd terraform-cloud/${{ inputs.cloud }}/${{ inputs.tf-directory }}
+        bash main.sh

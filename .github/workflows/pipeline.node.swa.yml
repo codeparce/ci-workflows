@@ -3,13 +3,10 @@ name: Fullstack Pipeline
 on:
   workflow_call:
     inputs:
-      type:
+      cloud:
         required: true
         type: string
-      cloud:
-        type: string
-      services:
-        type: string
+
 
 jobs:
   build:
@@ -20,9 +17,15 @@ jobs:
 
   infra:
     uses: ./.github/workflows/infra-az-swa.yml
+    with:
+      cloud: ${{ inputs.cloud }}
+      tf-directory: 2-static-web-app
     secrets: inherit
 
   deploy:
     uses: ./.github/workflows/cd-az-swa.yml
+    with:
+      config-path: secret
+      artifact-path: dist
     needs: [build, infra]
     secrets: inherit
