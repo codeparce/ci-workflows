@@ -16,7 +16,7 @@ jobs:
     secrets: inherit
 
   infra:
-    uses: ./.github/workflows/infra-az-swa.yml
+    uses: ./.github/workflows/infra.tf.yml
     with:
       cloud: ${{ inputs.cloud }}
       tf-directory: 2-static-web-app
