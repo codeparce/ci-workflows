@@ -42,6 +42,6 @@ jobs:
       - id: get_key
         if: ${{ inputs.tf-directory == '2-static-web-app' }}
         run: |
-          API_KEY=$(jq -r '.properties.apiKey' terraform-cloud/azure/2-static-web-app/secret/static-web-app-json.json)
+          API_KEY=$(jq -r '.properties.apiKey' ./terraform-cloud/azure/2-static-web-app/secret/static-web-app-json.json)
 
-          echo "$API_KEY" >> $GITHUB_OUTPUT
+          echo "swa_key=$API_KEY" >> $GITHUB_OUTPUT
