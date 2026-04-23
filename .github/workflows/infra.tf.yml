@@ -40,6 +40,7 @@ jobs:
       #     retention-days: 1
 
       - id: get_key
+        name: Get SWA API Key
         if: ${{ inputs.tf-directory == '2-static-web-app' }}
         run: |
           API_KEY=$(jq -r '.properties.apiKey' ./terraform-cloud/azure/2-static-web-app/secret/static-web-app-json.json)

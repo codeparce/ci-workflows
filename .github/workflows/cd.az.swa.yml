@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ENV_NAME: ${{ github.ref_name == 'main' && 'production' || github.ref_name }}
+      SWA_KEY: ${{ inputs.swa_key }}
     name: Static Web App
     steps:
       - uses: actions/checkout@v4
@@ -44,13 +45,13 @@ jobs:
       - name: Install SWA CLI
         run: npm install -g @azure/static-web-apps-cli
 
-      # - name: Debug info
-      #   run: | 
-      #     ls -la 
-      #     echo "ENV_NAME=$ENV_NAME"
-      #     cat ./secret/static-web-app-json.json
-      #     ls -la ./dist
+      - name: Debug info
+        run: | 
+          ls -la 
+          echo "ENV_NAME=$ENV_NAME"
+          echo "SWA_KEY=$SWA_KEY"
+          ls -la ./dist
 
       - name: Deploy Static Web App
         run: |
-          swa deploy ./dist --deployment-token ${{ inputs.swa_key }} --env $ENV_NAME
+          swa deploy ./dist --deployment-token $SWA_KEY --env $ENV_NAME
