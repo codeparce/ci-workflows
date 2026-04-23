@@ -3,11 +3,11 @@ name: Deploy to Azure Arquitecture
 
 on:
   workflow_call:
-inputs:
-      config-path:
-        required: true
-      artifact-path:
-        required: true
+    inputs:
+          config-path:
+            required: true
+          artifact-path:
+            required: true
 
 jobs:
   deploy-az-swa:
