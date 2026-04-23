@@ -14,6 +14,8 @@ on:
 jobs:
   deploy-az-swa:
     runs-on: ubuntu-latest
+    env:
+      ENV_NAME: ${{ github.ref_name == 'main' && 'production' || github.ref_name }}
     name: Static Web App
     steps:
       - uses: actions/checkout@v4
@@ -43,12 +45,11 @@ jobs:
         run: | 
           ls -la 
           echo "ENV_NAME=$ENV_NAME"
-          echo "API_KEY length: ${#API_KEY}"
+          cat secret/static-web-app-json.json
           ls -la ./dist
 
       - name: Deploy Static Web App
         run: |
-          ENV_NAME=$([ "$GITHUB_REF_NAME" = "main" ] && echo "production" || echo "$GITHUB_REF_NAME")
           FILE_JSON="secret/static-web-app-json.json"
           API_KEY=$(jq -r '.properties.apiKey' $FILE_JSON)
           
