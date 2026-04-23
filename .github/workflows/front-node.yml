@@ -23,6 +23,6 @@ jobs:
     secrets: inherit
 
   deploy:
-    uses: codeparce/ci-workflows/.github/actions/azure/swa@v1
+    uses: ./.github/workflows/cd-az-swa.yml
     needs: [build, infra]
     secrets: inherit
