@@ -1,0 +1,25 @@
+# .github/workflows/docker-build.yml
+name: Docker publish 
+
+on:
+  workflow_call:
+    inputs:
+      target:
+        required: true
+        type: string
+
+jobs:
+  docker-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+          
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: service-build
+          path: ${{ inputs.target }}
+
+      - name: Publish to Docker Hub
+        uses: codeparce/ci-workflows/.github/actions/docker@v1

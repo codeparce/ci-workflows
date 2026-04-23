@@ -1,0 +1,17 @@
+  build:
+    uses: ./.github/workflows/ci-build-node.yml
+    with:
+      doppler-project: vault-codeparce
+    secrets: inherit
+
+  publish:
+    needs: build
+    uses: ./.github/workflows/ci-docker.yml
+    with:
+      target: dist
+    secrets: inherit
+
+  infra:
+    needs: publish
+    uses: ./.github/workflows/infra-az-cae.yml
+    secrets: inherit

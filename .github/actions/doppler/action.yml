@@ -1,0 +1,22 @@
+name: "Load Doppler Secrets"
+
+inputs:
+  doppler-token:
+    required: true
+  doppler-project:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Doppler CLI
+      uses: dopplerhq/cli-action@v3
+
+    - name: Download secrets
+      run: |
+        doppler secrets download \
+          -p ${{ inputs.doppler-project }} \
+          -c "${{ github.ref_name }}_${{ github.event.repository.name }}" \
+          --no-file --format env \
+          -t "${{ inputs.doppler-token }}" > .env
+      shell: bash

@@ -1,0 +1,25 @@
+name: "Deploy Azure Static Web App"
+
+inputs:
+  artifact-path:
+    required: true
+  config-path:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install SWA CLI
+      run: npm install -g @azure/static-web-apps-cli
+      shell: bash
+
+    - name: Deploy
+      run: |
+        ENV_NAME=$([ "$GITHUB_REF_NAME" = "main" ] && echo "production" || echo "$GITHUB_REF_NAME")
+        FILE_JSON="${{ inputs.config-path }}/static-web-app-json.json"
+        API_KEY=$(jq -r '.properties.apiKey' $FILE_JSON)
+
+        swa deploy ${{ inputs.artifact-path }} \
+          --deployment-token $API_KEY \
+          --env $ENV_NAME
+      shell: bash

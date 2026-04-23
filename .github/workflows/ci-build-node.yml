@@ -1,0 +1,38 @@
+name: Build node project
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        default: '24'
+        required: false
+        type: string
+      doppler-project:
+        required: true
+        type: string
+    secrets:
+      DOPPLER_TOKEN:
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: Load secrets
+        uses: codeparce/ci-workflows/.github/actions/doppler@v1
+        with:
+          doppler-token: ${{ secrets.DOPPLER_TOKEN }}
+          doppler-project: ${{ inputs.doppler-project }}
+
+      - name: Setup Node
+        uses: codeparce/ci-workflows/.github/actions/node/setup@v1
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Build
+        uses: codeparce/ci-workflows/.github/actions/node/build@v1

@@ -1,0 +1,31 @@
+# .github/workflows/node-build.yml
+name: Deploy to Azure Arquitecture
+
+on:
+  workflow_call:
+
+jobs:
+  terraform:
+    name: Arquitecture
+    timeout-minutes: 4
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+      DOCKER_ACCOUNT_NAME: ${{ secrets.DOCKER_ACCOUNT_NAME }}
+      DOCKER_ACCESS_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+      DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+      APP_ENVIRONMENT: ${{ github.ref_name }}_${{ github.event.repository.name }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: Setup cloud environment
+        uses: codeparce/ci-workflows/.github/actions/azure/setup@v1
+        
+      - name: Deploy Azure infrastructure
+        run: |
+          cd /terraform-cloud/azure/5-container-app
+          bash main.sh
