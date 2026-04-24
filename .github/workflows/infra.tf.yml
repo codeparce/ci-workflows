@@ -35,14 +35,6 @@ jobs:
           docker-access-token: ${{ secrets.DOCKER_ACCESS_TOKEN }}
           doppler-token: ${{ secrets.DOPPLER_TOKEN }}
 
-      # - name: Upload Static Web App secrets artifact
-      #   if: ${{ inputs.tf-directory == '2-static-web-app' }}
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: static-web-app-json
-      #     path: terraform-cloud/azure/2-static-web-app/secret
-      #     retention-days: 1
-
       - id: get_key
         name: Get SWA API Key
         if: ${{ inputs.tf-directory == '2-static-web-app' }}
