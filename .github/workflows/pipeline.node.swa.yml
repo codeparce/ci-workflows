@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/ci-build-node.yml
+    uses: ./.github/workflows/ci.build.node.yml
     with:
       doppler-project: vault-codeparce
     secrets: inherit
