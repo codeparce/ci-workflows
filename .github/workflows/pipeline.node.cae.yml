@@ -28,4 +28,7 @@ jobs:
   infra:
     needs: publish
     uses: ./.github/workflows/infra.tf.yml
+    with:
+      tf-directory: 5-container-app
+      cloud: ${{ inputs.cloud }}
     secrets: inherit
