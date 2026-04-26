@@ -3,13 +3,9 @@ name: Fullstack Pipeline
 on:
   workflow_call:
     inputs:
-      type:
-        required: true
-        type: string
       cloud:
         type: string
-      services:
-        type: string
+
 
 jobs:
   build:
