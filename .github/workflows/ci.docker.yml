@@ -23,3 +23,6 @@ jobs:
 
       - name: Publish to Docker Hub
         uses: codeparce/ci-workflows/.github/actions/docker@v1
+        with:
+          docker-account-name: ${{ secrets.DOCKER_ACCOUNT_NAME }}
+          docker-access-token: ${{ secrets.DOCKER_ACCESS_TOKEN }}
