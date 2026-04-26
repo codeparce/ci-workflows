@@ -3,6 +3,12 @@ name: Build node project
 on:
   workflow_call:
     inputs:
+      type:
+        required: true
+        type: string
+      target:
+        required: true
+        type: string
       doppler-project:
         required: true
         type: string
@@ -26,3 +32,6 @@ jobs:
 
       - name: Build
         uses: codeparce/ci-workflows/.github/actions/node/build@v1
+        with:
+          type: ${{ inputs.type }}
+          target: ${{ inputs.target }}

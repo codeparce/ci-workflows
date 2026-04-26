@@ -12,6 +12,8 @@ jobs:
   build:
     uses: ./.github/workflows/ci.build.node.yml
     with:
+      type: web-build
+      path: dist
       doppler-project: vault-codeparce
     secrets: inherit
 

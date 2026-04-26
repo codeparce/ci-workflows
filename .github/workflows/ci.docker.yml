@@ -4,6 +4,9 @@ name: Docker publish
 on:
   workflow_call:
     inputs:
+      type:
+        required: true
+        type: string
       target:
         required: true
         type: string
@@ -18,7 +21,7 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: service-build
+          name: ${{ inputs.type }}
           path: ${{ inputs.target }}
 
       - name: Publish to Docker Hub

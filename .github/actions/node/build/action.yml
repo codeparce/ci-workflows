@@ -1,6 +1,14 @@
 # .github/workflows/node-build.yml
 name: "Build Node Project"
 
+inputs:
+  type:
+    required: true
+    type: string
+  target:
+    required: true
+    type: string
+
 runs:
   using: "composite"
   steps:
@@ -16,6 +24,6 @@ runs:
       
     - uses: actions/upload-artifact@v4
       with:
-        name: web-build
-        path: dist
+        name: ${{ inputs.type }}
+        path: ${{ inputs.target }}
         retention-days: 1
