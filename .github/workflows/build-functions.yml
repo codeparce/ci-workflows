@@ -1,0 +1,27 @@
+# .github/workflows/build-functions.yml
+
+on:
+  workflow_call:
+
+
+jobs:
+  zip-code:
+    name: Zip Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: zip code
+        run: |
+          ls && cd function/ && zip -r functions.zip . -x "*test*"
+
+      - name: Upload zip artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: file.zip
+          path: function/functions.zip
+          retention-days: 1
+          
