@@ -154,6 +154,10 @@ Configure these secrets in your repository:
 ## TAG Version
 
 ```bash
+git add .
+git commit -m "Devops: new: Actions github Container Registry"
+git push 
+
 git tag -d v1
 git push origin --delete v1
 git tag -a v1 -m "Versión 1: Github Container Registry"
