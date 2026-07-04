@@ -1,0 +1,22 @@
+# .github/workflows/docker-build.yml
+name: Docker publish 
+
+runs:
+  using: "composite"
+  steps:
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }} 
+
+      - name: Build Docker image
+        shell: bash
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${GITHUB_SHA::7} .
+
+      - name: Push Docker image
+        shell: bash
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${GITHUB_SHA::7}
