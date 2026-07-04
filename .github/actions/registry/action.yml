@@ -21,8 +21,8 @@ runs:
         run: |
           export IMAGE_TAG=${GITHUB_SHA::7}
           echo "Building Docker image with tag: $IMAGE_TAG"
-          docker build -t ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:$IMAGE_TAG .
-          docker tag ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:$IMAGE_TAG  tag ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:$IMAGE_TAG 
+          docker build -t ${{ github.repository_owner }}/${{ github.event.repository.name }}:$IMAGE_TAG .
+          docker tag ${{ github.repository_owner }}/${{ github.event.repository.name }}:$IMAGE_TAG  ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:$IMAGE_TAG 
 
       - name: Push Docker image
         shell: bash
