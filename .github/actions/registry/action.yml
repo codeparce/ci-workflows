@@ -1,6 +1,11 @@
 # .github/workflows/docker-build.yml
 name: Docker publish 
 
+inputs:
+  container-access-token:
+    description: 'El token para loguearse'
+    required: true
+
 runs:
   using: "composite"
   steps:
@@ -9,7 +14,7 @@ runs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }} 
+          password: ${{ inputs.container-access-token }} 
 
       - name: Build Docker image
         shell: bash

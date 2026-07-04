@@ -150,6 +150,16 @@ Configure these secrets in your repository:
 - `ARM_SUBSCRIPTION_ID`
 - `PERSONAL_ACCES_TOKEN` (with repo scope)
 
+
+## TAG Version
+
+```bash
+git tag -d v1
+git push origin --delete v1
+git tag -a v1 -m "Versión 1: Github Container Registry"
+git push origin v1
+```
+
 ## License
 
 MIT
