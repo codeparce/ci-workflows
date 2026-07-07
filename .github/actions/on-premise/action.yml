@@ -32,11 +32,18 @@ runs:
           helm upgrade --install ${GITHUB_REPOSITORY_NAME} . --namespace $NS --create-namespace
           echo "Deploying ${GITHUB_REPOSITORY_NAME} with Helm "
 
+          SECRET=$(kubectl get secret ghcr-secret -n $NS 2>/dev/null)
+
+          if [ $? -eq 0 ]; then
+              echo "Secret already exists in namespace $NS"
+          else
           kubectl create secret docker-registry ghcr-secret \
           --docker-server=ghcr.io \
           --docker-username=${{ github.actor }} \
           --docker-password=${{ inputs.container-access-token }} \
           --namespace=$NS 
           echo "Secret created."
+          fi
+
         shell: bash
 
