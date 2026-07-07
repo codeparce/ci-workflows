@@ -5,14 +5,24 @@ inputs:
   container-access-token:
     description: 'El token para loguearse'
     required: true
+  type:
+    description: 'El tipo de despliegue (carpeta dentro de helm-template)'
+    required: true
 
 
 runs:
   using: "composite"
   steps:
+      - name: Checkout helm repository
+        uses: actions/checkout@v4
+        with:
+          repository: codeparceorg/helm-template
+          token: ${{ github.token }}
+          path: helm-template
+          
       - name: Deploy to Kubernetes
         run: |
-          mv env.template helm-template/ms/.env && cd helm-template/ms
+          mv env.template helm-template/${{ inputs.type }}/.env && cd helm-template/${{ inputs.type }}
           
           export IMAGE_TAG=${GITHUB_SHA::7}
 
@@ -28,9 +38,5 @@ runs:
           --docker-password=${{ inputs.container-access-token }} \
           --namespace=$NS 
           echo "Secret created."
-
-          echo "Deployment completed successfully."
-          echo "DNS Externo: http://microservicio.${NS}.lab/users"
-          echo "DNS interno: ${SVC_NAME}.${NS}.svc.cluster.local/users"
         shell: bash
 
