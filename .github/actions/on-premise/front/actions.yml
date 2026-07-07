@@ -1,0 +1,30 @@
+# .github/workflows/docker-build.yml
+name: Frontend deploy kubernetes
+
+runs:
+  using: "composite"
+  steps:
+      - name: Deploy to Kubernetes
+        run: |
+          mv env.template helm-template/ms/.env && cd helm-template/ms
+          
+          export IMAGE_TAG=${GITHUB_SHA::7}
+
+          envsubst < values.template > values.yaml
+          echo "Map values.yaml created."
+
+          helm upgrade --install ${GITHUB_REPOSITORY_NAME} . --namespace $NS --create-namespace
+          echo "Deploying ${GITHUB_REPOSITORY_NAME} with Helm "
+
+          kubectl create secret docker-registry ghcr-secret \
+          --docker-server=ghcr.io \
+          --docker-username=${{ github.actor }} \
+          --docker-password=${{ secrets.CONTAINER_REGISTRY_PAT_GITHUB }} \
+          --namespace=$NS 
+          echo "Secret created."
+
+          echo "Deployment completed successfully."
+          echo "DNS Externo: http://microservicio.${NS}.lab/users"
+          echo "DNS interno: ${SVC_NAME}.${NS}.svc.cluster.local/users"
+        shell: bash
+
