@@ -9,7 +9,7 @@ runs:
         java-version: 17
         cache: maven
 
-    - run: mvn clean package -DskipTests -Djar.name=app
+    - run: ./mvnw clean package -DskipTests -Djar.name=app
       shell: bash
 
     - uses: actions/upload-artifact@v4
