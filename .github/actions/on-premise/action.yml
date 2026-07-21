@@ -40,7 +40,7 @@ runs:
           envsubst < values.template > values.yaml
           echo "Map values.yaml created."
 
-          helm upgrade --install ${GITHUB_REPOSITORY_NAME} . --namespace $NS --create-namespace --wait=false
+          helm upgrade --install ${GITHUB_REPOSITORY_NAME} . --namespace $NS --create-namespace --wait=false -f values.yaml
           echo "Deploying ${GITHUB_REPOSITORY_NAME} with Helm "
         shell: bash
 
