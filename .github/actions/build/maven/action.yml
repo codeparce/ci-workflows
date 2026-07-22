@@ -11,7 +11,9 @@ runs:
 
     - run: |
         export IMAGE_TAG=${GITHUB_SHA::7}
-        envsubst < application.template > ./src/main/resources/application.yaml
+        envsubst < application.template > application.yaml
+        mv application.yaml ./src/main/resources/
+        cat ./src/main/resources/application.yaml
       shell: bash
 
     - run: ./mvnw clean package -DskipTests -Djar.name=app
