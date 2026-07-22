@@ -22,7 +22,17 @@ runs:
           
       - name: Deploy to Kubernetes
         run: |
-          kubectl create namespace $NS --dry-run=client -o yaml | kubectl apply -f -
+          mv env.template helm-template/${{ inputs.type }}/.env && cd helm-template/${{ inputs.type }}
+          
+          export IMAGE_TAG=${GITHUB_SHA::7}
+
+          envsubst < values.template > values.yaml
+          
+          echo "Map values.yaml created."
+
+          helm upgrade --install ${GITHUB_REPOSITORY_NAME} . --namespace $NS --create-namespace
+
+          echo "Deploying ${GITHUB_REPOSITORY_NAME} with Helm "
 
           kubectl create secret docker-registry ghcr-secret \
           --docker-server=ghcr.io \
@@ -33,14 +43,5 @@ runs:
 
           echo "Secret created."
 
-          mv env.template helm-template/${{ inputs.type }}/.env && cd helm-template/${{ inputs.type }}
-          
-          export IMAGE_TAG=${GITHUB_SHA::7}
-
-          envsubst < values.template > values.yaml
-          echo "Map values.yaml created."
-
-          helm upgrade --install ${GITHUB_REPOSITORY_NAME} . --namespace $NS --create-namespace --wait=false -f values.yaml
-          echo "Deploying ${GITHUB_REPOSITORY_NAME} with Helm "
         shell: bash
 
