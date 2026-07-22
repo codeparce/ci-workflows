@@ -9,6 +9,11 @@ runs:
         java-version: 17
         cache: maven
 
+    - run: |
+        export IMAGE_TAG=${GITHUB_SHA::7}
+        envsubst < application.template > ./src/main/resources/application.yaml
+      shell: bash
+
     - run: ./mvnw clean package -DskipTests -Djar.name=app
       shell: bash
 
