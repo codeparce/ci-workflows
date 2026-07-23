@@ -5,6 +5,9 @@ inputs:
   package-name:
     description: 'Nombre del paackage a limpiar'
     required: true
+  github-token:
+    description: 'Token del runner de github'
+    required: true
 
 runs:
   using: "composite"
@@ -15,4 +18,4 @@ runs:
         package-type: container
         min-versions-to-keep: 2
         delete-only-untagged-versions: false
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: {{ inputs.github-token }}
