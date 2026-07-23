@@ -16,6 +16,7 @@ runs:
     - name: Test GitHub API
       env:
         GH_TOKEN: ${{ inputs.github-token }}
+      shell: bash
       run: |
         curl -L \
           -H "Accept: application/vnd.github+json" \
