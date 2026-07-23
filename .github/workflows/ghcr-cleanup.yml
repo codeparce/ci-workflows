@@ -6,9 +6,6 @@ jobs:
   img-clear:
     name: Images Clear
     timeout-minutes: 3
-    permissions:
-      contents: read
-      packages: write
     runs-on: kubernetes # Runner on-premise
     steps:
       - uses: actions/checkout@v4
