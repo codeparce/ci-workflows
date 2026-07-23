@@ -1,7 +1,9 @@
 name: Gihub Clear Image
 on:
    workflow_call:
-
+    secrets:
+      CONTAINER_REGISTRY_PAT_GITHUB:
+        required: true
 jobs:
   img-clear:
     name: Images Clear
