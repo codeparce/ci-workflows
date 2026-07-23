@@ -1,8 +1,6 @@
 name: Gihub Clear Image
 on:
-  schedule:
-    - cron: '30 12 * * 4'
-  workflow_dispatch:
+   workflow_call:
 
 jobs:
   img-clear:
