@@ -13,6 +13,15 @@ runs:
   using: composite
 
   steps:
+    - name: Test GitHub API
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+      run: |
+        curl -L \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer $GH_TOKEN" \
+          https://api.github.com/orgs/codeparceorg/packages/container/${{inputs.package-name}}
+
     - uses: actions/delete-package-versions@v5
       with:
         owner: codeparceorg
