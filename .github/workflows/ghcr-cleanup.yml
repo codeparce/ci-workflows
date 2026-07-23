@@ -1,0 +1,28 @@
+name: Gihub Clear Image
+on:
+  schedule:
+    - cron: '30 12 * * 4'
+  workflow_dispatch:
+
+jobs:
+  img-clear:
+    name: Images Clear
+    timeout-minutes: 3
+    permissions:
+      contents: read
+      packages: write
+    runs-on: kubernetes # Runner on-premise
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Debug
+        run: |
+          echo "repository_owner = ${{ github.repository_owner }}"
+          echo "repository = ${{ github.repository }}"
+          echo "repository_name = ${{ github.event.repository.name }}"
+
+      - name: Actions for Clear images
+        uses: codeparce/ci-workflows/.github/actions/github/clear@v1
+        with:
+          package-name: ${{ github.event.repository.name }}
+          github-token: ${{ secrets.CONTAINER_REGISTRY_PAT_GITHUB }}
