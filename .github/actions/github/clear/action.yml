@@ -11,10 +11,11 @@ inputs:
 
 runs:
   using: composite
-  
+
   steps:
     - uses: actions/delete-package-versions@v5
       with:
+        owner: codeparceorg
         package-name: ${{inputs.package-name}}
         package-type: container
         min-versions-to-keep: 2
