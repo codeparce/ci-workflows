@@ -15,3 +15,4 @@ runs:
         package-type: container
         min-versions-to-keep: 2
         delete-only-untagged-versions: false
+        token: ${{ secrets.GITHUB_TOKEN }}
