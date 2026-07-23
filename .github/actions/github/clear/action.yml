@@ -1,0 +1,17 @@
+# .github/workflows/docker-build.yml
+name: Clear the Imagens
+
+inputs:
+  package-name:
+    description: 'Nombre del paackage a limpiar'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/delete-package-versions@v5
+      with:
+        package-name: {{inputs.package-name}}
+        package-type: container
+        min-versions-to-keep: 2
+        delete-only-untagged-versions: false

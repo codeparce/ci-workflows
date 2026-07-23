@@ -150,6 +150,9 @@ Configure these secrets in your repository:
 - `ARM_SUBSCRIPTION_ID`
 - `PERSONAL_ACCES_TOKEN` (with repo scope)
 
+## Documentation 
+
+    https://github.com/actions/delete-package-versions#what-it-can-do
 
 ## TAG Version
 
