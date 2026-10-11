@@ -24,7 +24,7 @@ runs:
         with:
           context: .
           push: true
-          tags: ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ github.ref_name }}
+          tags: ${{ github.event.repository.name }}:${{ github.ref_name }}
 
       # - name: Build Docker image
       #   run: |
