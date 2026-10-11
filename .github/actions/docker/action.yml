@@ -22,10 +22,6 @@ runs:
           username: ${{ inputs.account-name }}
           password: ${{ inputs.access-token }}
 
-      - name: Checkout code
-        shell: bash
-        run: ./mvnw -B -q dependency:go-offline
-
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
