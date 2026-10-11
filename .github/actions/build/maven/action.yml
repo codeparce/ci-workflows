@@ -12,11 +12,11 @@ runs:
 
     - name: Download dependencies
       shell: bash
-      run: ./mvnw -B dependency:go-offline
+      run: ./mvnw -B -q dependency:go-offline
 
     - name: Build and test
       shell: bash
-      run: ./mvnw -B clean verify -Djar.name=app
+      run: ./mvnw -B -q clean verify -Djar.name=app
 
     - name: Publish test results
       if: success() || failure()
