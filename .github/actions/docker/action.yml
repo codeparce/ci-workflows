@@ -19,20 +19,20 @@ runs:
           username: ${{ inputs.account-name }}
           password: ${{ inputs.access-token }}
 
-      - name: Build and push image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: ${{ github.event.repository.name }}:${{ github.ref_name }}
+      # - name: Build and push image
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: ${{ github.event.repository.name }}:${{ github.ref_name }}
 
-      # - name: Build Docker image
-      #   run: |
-      #     docker build \
-      #       -t ${{ inputs.docker-account-name }}/${{ github.event.repository.name }}:${{ github.ref_name }} .
-      #   shell: bash
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ github.ref_name }} .
+        shell: bash
 
-      # - name: Push Docker image
-      #   run: |
-      #     docker push ${{ inputs.docker-account-name }}/${{ github.event.repository.name }}:${{ github.ref_name }}
-      #   shell: bash
+      - name: Push Docker image
+        run: |
+          docker push ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ github.ref_name }}
+        shell: bash
