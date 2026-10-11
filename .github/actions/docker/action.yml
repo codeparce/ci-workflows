@@ -15,7 +15,7 @@ runs:
       - name: Login to Registry
         uses: docker/login-action@v3
         with:
-          #registry: ghcr.io
+          registry: docker.io # parametrizar
           username: ${{ inputs.account-name }}
           password: ${{ inputs.access-token }}
 
