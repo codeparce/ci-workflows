@@ -22,12 +22,16 @@ runs:
           username: ${{ inputs.account-name }}
           password: ${{ inputs.access-token }}
 
+      - name: Checkout code
+        shell: bash
+        run: ./mvnw -B -q dependency:go-offline
+
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: ${{ github.event.repository.name }}:${{ github.target-branch }} #${{ inputs.target-branch }}
+          tags: ${{ github.event.repository.name }}:${{ inputs.target-branch }} #${{ inputs.target-branch }}
 
       # - name: Build Docker image
       #   run: |
