@@ -1,6 +1,12 @@
 
 name: Java setup
 
+inputs:
+  skip-tests:
+    default: false
+    required: false
+    type: boolean
+
 runs:
   using: composite
   steps:
@@ -16,10 +22,16 @@ runs:
 
     - name: Build and test
       shell: bash
+      if: inputs.skip-tests != 'true'
       run: ./mvnw -B -q clean verify surefire-report:report -Djar.name=app 
 
+    - name: Build without tests
+      if: inputs.skip-tests == 'true'
+      shell: bash
+      run: ./mvnw -B -q clean package -DskipTests -Djar.name=app
+
     - name: Publish test results
-      if: success() || failure()
+      if: inputs.skip-tests != 'true' && (success() || failure())
       uses: dorny/test-reporter@v2
       with:
         name: JUnit Tests
@@ -28,7 +40,7 @@ runs:
         fail-on-error: false
 
     - name: Upload test results
-      if: always()
+      if: always() && inputs.skip-tests != 'true'
       uses: actions/upload-artifact@v4
       with:
         name: test-reports
