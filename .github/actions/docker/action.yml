@@ -22,13 +22,20 @@ runs:
           username: ${{ inputs.account-name }}
           password: ${{ inputs.access-token }}
 
-      - name: Build Docker image
-        run: |
-          docker build \
-            -t ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ inputs.target-branch }} .
-        shell: bash
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ inputs.target-branch }} 
 
-      - name: Push Docker image
-        run: |
-          docker push ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ inputs.target-branch }}
-        shell: bash
+      # - name: Build Docker image
+      #   run: |
+      #     docker build \
+      #       -t ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ inputs.target-branch }} .
+      #   shell: bash
+
+      # - name: Push Docker image
+      #   run: |
+      #     docker push ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ inputs.target-branch }}
+      #   shell: bash

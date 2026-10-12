@@ -1,0 +1,29 @@
+  # .github/workflows/docker-build.yml
+name: Docker publish 
+
+inputs:
+  scaner-name:
+    type: string
+    required: true
+  report-file:
+    type: string
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+      - name: Add results to GitHub Summary
+        shell: bash
+        run: |
+          {
+            echo "## Trivy Scan: ${{ inputs.scaner-name}}"
+            echo
+            if [[ -f ${{ inputs.report-file }} ]]; then
+              echo '```text'
+              cat ${{ inputs.report-file }}
+              echo
+              echo '```'
+            else
+              echo "No report file was generated."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
