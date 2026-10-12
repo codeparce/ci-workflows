@@ -17,7 +17,7 @@ runs:
         run: |
           {
             echo "## Trivy Scan: ${{ inputs.scaner-name}}"
-            echo
+            echo "<details><summary>Expand for details</summary>"
             if [[ -f ${{ inputs.report-file }} ]]; then
               echo '```text'
               cat ${{ inputs.report-file }}
@@ -26,4 +26,5 @@ runs:
             else
               echo "No report file was generated."
             fi
+            echo "</details>"
           } >> "$GITHUB_STEP_SUMMARY"
