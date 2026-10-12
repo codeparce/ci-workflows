@@ -16,7 +16,7 @@ runs:
 
     - name: Build and test
       shell: bash
-      run: ./mvnw -B -q clean verify -Djar.name=app
+      run: ./mvnw -B -q clean verify surefire-report:report -Djar.name=app 
 
     - name: Publish test results
       if: success() || failure()
@@ -32,7 +32,7 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: test-reports
-        path: target/surefire-reports/
+        path: target/reports/
         retention-days: 1
         if-no-files-found: warn
 
