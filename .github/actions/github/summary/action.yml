@@ -18,6 +18,7 @@ runs:
           {
             echo "## Trivy Scan: ${{ inputs.scaner-name}}"
             echo "<details><summary>Expand for details</summary>"
+            echo
             if [[ -f ${{ inputs.report-file }} ]]; then
               echo '```text'
               cat ${{ inputs.report-file }}
