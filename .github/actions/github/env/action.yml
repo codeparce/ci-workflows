@@ -5,7 +5,9 @@ inputs:
   env-file:
     type: string
     required: true
-
+  env-template:
+    type: string
+    required: true
 
 runs:
   using: "composite"
@@ -13,7 +15,7 @@ runs:
     - name: Load environment variables
       shell: bash
       run: |
-        envsubst < ${{inputs.env-file}} > ${{inputs.env-file}}
+        envsubst < ${{inputs.env-template}} > ${{inputs.env-file}}
         cat ${{inputs.env-file}}
         cat ${{inputs.env-file}} >> "$GITHUB_ENV"
 

@@ -14,9 +14,9 @@ runs:
       shell: bash
       run: |
         echo  ${{inputs.path-parameter}} 
-        
+
         aws ssm get-parameter \
         --name ${{inputs.path-parameter}} \
         --query "Parameter.Value" \
         --output text \
-        --region us-east-1  > ./.env
+        --region us-east-1  > ./.env.template
