@@ -1,5 +1,5 @@
   # .github/workflows/docker-build.yml
-name: Docker publish 
+name: GitHub Summary
 
 inputs:
   scaner-name:

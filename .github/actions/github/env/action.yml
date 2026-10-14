@@ -1,0 +1,17 @@
+  # .github/workflows/docker-build.yml
+name: Github Env  
+
+inputs:
+  env-file:
+    type: string
+    required: true
+
+
+runs:
+  using: "composite"
+  steps:
+    - name: Load environment variables
+      shell: bash
+      run: |
+        cat ${{inputs.env-file}} >> "$GITHUB_ENV"
+
