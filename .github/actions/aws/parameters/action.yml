@@ -1,0 +1,20 @@
+  # .github/workflows/docker-build.yml
+name: AWS Parameters Stores  
+
+inputs:
+  path-parameter:
+    type: string
+    required: true
+
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get Parameter Store for Path
+      shell: bash
+      run: |
+        aws ssm get-parameter \
+        --name ${{inputs.path-parameter}} \
+        --query "Parameter.Value" \
+        --output text \
+        --region us-east-1  > ./.env
