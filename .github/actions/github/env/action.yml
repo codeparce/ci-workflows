@@ -13,6 +13,7 @@ runs:
     - name: Load environment variables
       shell: bash
       run: |
+        envsubst < ${{inputs.env-file}} > ${{inputs.env-file}}
         cat ${{inputs.env-file}}
         cat ${{inputs.env-file}} >> "$GITHUB_ENV"
 
