@@ -16,6 +16,5 @@ runs:
       shell: bash
       run: |
         envsubst < ${{inputs.env-template}} > ${{inputs.env-file}}
-        cat ${{inputs.env-file}}
         cat ${{inputs.env-file}} >> "$GITHUB_ENV"
 

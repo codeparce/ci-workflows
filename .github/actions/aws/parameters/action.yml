@@ -13,8 +13,6 @@ runs:
     - name: Get Parameter Store for Path
       shell: bash
       run: |
-        echo  ${{inputs.path-parameter}} 
-
         aws ssm get-parameter \
         --name ${{inputs.path-parameter}} \
         --query "Parameter.Value" \
