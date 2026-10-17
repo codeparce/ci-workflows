@@ -12,7 +12,7 @@ inputs:
     default: 'docker.io' #ghcr.io
     required: false
     type: string
-  image-tag:
+  target-branch:
     required: true
     type: string
 
@@ -29,10 +29,10 @@ runs:
       - name: Build Docker image
         run: |
           docker build \
-            -t ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ inputs.image-tag }} .
+            -t ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ inputs.target-branch }} .
         shell: bash
 
       - name: Push Docker image
         run: |
-          docker push ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ inputs.image-tag }}
+          docker push ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ inputs.target-branch }}
         shell: bash

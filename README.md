@@ -163,7 +163,7 @@ git push
 
 git tag -d v1
 git push origin --delete v1
-git tag -a v1 -m "Devops: new: Actions on-premise"
+git tag -a v1 -m "feat(docker): parametrizar registro y etiqueta de imagen en acción de docker"
 git push origin v1
 ```
 
