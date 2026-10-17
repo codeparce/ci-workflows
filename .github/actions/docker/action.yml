@@ -8,7 +8,11 @@ inputs:
   access-token:
     required: true
     type: string
-  target-branch:
+  registry:
+    default: 'docker.io' #ghcr.io
+    required: false
+    type: string
+  image-tag:
     required: true
     type: string
 
@@ -18,17 +22,17 @@ runs:
       - name: Login to Registry
         uses: docker/login-action@v3
         with:
-          registry: docker.io # parametrizar
+          registry: ${{inputs.registry }}
           username: ${{ inputs.account-name }}
           password: ${{ inputs.access-token }}
 
       - name: Build Docker image
         run: |
           docker build \
-            -t ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ inputs.target-branch }} .
+            -t ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ inputs.image-tag }} .
         shell: bash
 
       - name: Push Docker image
         run: |
-          docker push ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ inputs.target-branch }}
+          docker push ${{ inputs.account-name }}/${{ github.event.repository.name }}:${{ inputs.image-tag }}
         shell: bash
